@@ -48,27 +48,24 @@ def main():
 	)
 
 	st.markdown("""
-		<h1 style='font-size:2.8rem; margin-bottom:0.2em; color:#111;'>簡單線性迴歸互動展示</h1>
-		<div style='font-size:1.2rem; color:#555; margin-bottom:2.5em;'>
-			以 Apple 官網風格設計，互動調整參數、即時觀察資料與模型。
-		</div>
+		<h1 style='font-size:2.8rem; margin-bottom:2.5em; color:#111;'>Simple Linear Regression Interactive Demo</h1>
 		<hr style='margin-bottom:2em;'/>
 	""", unsafe_allow_html=True)
 
 	# 參數區塊
 	with st.container():
-		st.markdown("<h2 style='color:#222;'>參數設定</h2>", unsafe_allow_html=True)
+		st.markdown("<h2 style='color:#222;'>Parameters</h2>", unsafe_allow_html=True)
 		col1, col2, col3, col4, col5 = st.columns([1,1,1,1,1])
 		with col1:
-			a = st.slider('斜率 a', min_value=-10.0, max_value=10.0, value=2.0, step=0.1)
+			a = st.slider('Slope a', min_value=-10.0, max_value=10.0, value=2.0, step=0.1)
 		with col2:
-			b = st.slider('截距 b', min_value=-20.0, max_value=20.0, value=1.0, step=0.1)
+			b = st.slider('Intercept b', min_value=-20.0, max_value=20.0, value=1.0, step=0.1)
 		with col3:
-			noise = st.slider('雜訊標準差', min_value=0.0, max_value=10.0, value=2.0, step=0.1)
+			noise = st.slider('Noise std', min_value=0.0, max_value=10.0, value=2.0, step=0.1)
 		with col4:
-			n_points = st.slider('資料點數', min_value=10, max_value=500, value=100, step=1)
+			n_points = st.slider('Data points', min_value=10, max_value=500, value=100, step=1)
 		with col5:
-			random_state = st.number_input('隨機種子', value=42, step=1)
+			random_state = st.number_input('Random seed', value=42, step=1)
 
 	df = generate_linear_data(a=a, b=b, noise=noise, n_points=n_points, random_state=int(random_state))
 	X_train, X_test, y_train, y_test = train_test_split(df['x'], df['y'], test_size=0.2, random_state=int(random_state))
@@ -78,8 +75,8 @@ def main():
 
 	st.markdown("<hr style='margin:2em 0;' />", unsafe_allow_html=True)
 
-	# 視覺化區塊
-	st.markdown("<h2 style='color:#222;'>資料與回歸線</h2>", unsafe_allow_html=True)
+	# Visualization
+	st.markdown("<h2 style='color:#222;'>Data & Regression Line</h2>", unsafe_allow_html=True)
 	fig, ax = plt.subplots(figsize=(8, 5))
 	ax.scatter(X_train, y_train, color='#0071e3', label='Train', alpha=0.7)
 	ax.scatter(X_test, y_test, color='#ff9500', label='Test', alpha=0.7)
@@ -88,15 +85,15 @@ def main():
 	ax.plot(x_line, y_line, color='#111', linewidth=2.5, label='Regression Line')
 	ax.set_xlabel('x', fontsize=13)
 	ax.set_ylabel('y', fontsize=13)
-	ax.set_title('資料與回歸線', fontsize=16, pad=12)
+	ax.set_title('Data & Regression Line', fontsize=16, pad=12)
 	ax.legend()
 	ax.grid(alpha=0.2)
 	st.pyplot(fig)
 
 	st.markdown("<hr style='margin:2em 0;' />", unsafe_allow_html=True)
 
-	# 指標區塊
-	st.markdown("<h2 style='color:#222;'>模型評估指標</h2>", unsafe_allow_html=True)
+	# Metrics
+	st.markdown("<h2 style='color:#222;'>Model Metrics</h2>", unsafe_allow_html=True)
 	st.markdown(f"<div style='font-size:1.3rem; color:#0071e3;'>MSE: {metrics['mse']:.3f}</div>", unsafe_allow_html=True)
 	st.markdown(f"<div style='font-size:1.3rem; color:#0071e3;'>R2: {metrics['r2']:.3f}</div>", unsafe_allow_html=True)
 
