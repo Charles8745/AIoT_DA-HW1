@@ -16,7 +16,7 @@ def main():
         layout="wide", 
         page_title="Linear Regression Interactive Demo",
         page_icon="📊",
-        initial_sidebar_state="collapsed"
+        initial_sidebar_state="expanded"
     )
     
     # Glassmorphism CSS 樣式 - 白色基底
@@ -52,31 +52,33 @@ def main():
         
         /* 側邊欄展開/收合按鈕 - 確保可見 */
         button[data-testid="collapsedControl"] {
-            background: rgba(255, 255, 255, 0.8) !important;
+            background: rgba(52, 152, 219, 0.9) !important;
             backdrop-filter: blur(15px) !important;
-            border: 2px solid rgba(52, 152, 219, 0.3) !important;
-            border-radius: 12px !important;
-            color: #2c3e50 !important;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+            border: 3px solid rgba(255, 255, 255, 0.8) !important;
+            border-radius: 50% !important;
+            color: white !important;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4) !important;
             transition: all 0.3s ease !important;
-            width: 40px !important;
-            height: 40px !important;
+            width: 50px !important;
+            height: 50px !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
             position: fixed !important;
-            top: 1rem !important;
-            left: 1rem !important;
+            top: 1.5rem !important;
+            left: 1.5rem !important;
             z-index: 999999 !important;
             visibility: visible !important;
             opacity: 1 !important;
+            font-size: 1.2rem !important;
+            font-weight: bold !important;
         }
         
         button[data-testid="collapsedControl"]:hover {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border-color: rgba(52, 152, 219, 0.6) !important;
-            transform: scale(1.1) !important;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+            background: rgba(52, 152, 219, 1) !important;
+            border-color: rgba(255, 255, 255, 1) !important;
+            transform: scale(1.15) !important;
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6) !important;
         }
         
         /* 側邊欄內容樣式 */
@@ -304,12 +306,30 @@ def main():
 
     # 主內容區域
     st.markdown("""
-        <div style='text-align: center; margin-bottom: 3rem;'>
+        <div style='text-align: center; margin-bottom: 2rem;'>
             <h1 style='font-size: 3rem; margin-bottom: 0.5rem; color: #2c3e50;'>
                 Linear Regression Demo
             </h1>
             <p style='font-size: 1.2rem; color: #7f8c8d; margin: 0;'>
                 Interactive visualization with glassmorphism design
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # 側邊欄提示
+    st.markdown("""
+        <div style='background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1)); 
+                    border: 2px solid rgba(52, 152, 219, 0.3); 
+                    border-radius: 15px; 
+                    padding: 1rem; 
+                    margin-bottom: 2rem; 
+                    text-align: center;
+                    backdrop-filter: blur(10px);'>
+            <h4 style='margin: 0 0 0.5rem 0; color: #3498db;'>
+                🎛️ Use the sidebar to adjust parameters!
+            </h4>
+            <p style='margin: 0; color: #7f8c8d; font-size: 0.9rem;'>
+                Click the <strong style='color: #3498db;'>blue button</strong> in the top-left corner to open/close the control panel
             </p>
         </div>
     """, unsafe_allow_html=True)
