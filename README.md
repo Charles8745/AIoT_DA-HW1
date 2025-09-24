@@ -3,7 +3,7 @@
 An interactive web application built with Python and Streamlit that demonstrates simple linear regression following the CRISP-DM methodology. Users can adjust parameters in real-time and observe how they affect the data distribution, regression line, and model performance.
 
 ## 🚀 Live Demo
-Visit the live demo: [https://aiotda-hw1-nt3pzdsutdj4wpkkpaicw5.streamlit.app/](https://aiotda-hw1-nt3pzdsutdj4wpkkpaicw5.streamlit.app/)
+Visit the live demo: [https://aiotda-hw1-lymgodappngtj68dszixcvx.streamlit.app/](https://aiotda-hw1-lymgodappngtj68dszixcvx.streamlit.app/)
 
 ---
 
