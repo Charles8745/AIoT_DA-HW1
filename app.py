@@ -11,12 +11,12 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 # ====== Streamlit 主程式 ======
 def main():
-    # Glassmorphism 風格配置
+    # 現代化配置
     st.set_page_config(
         layout="wide", 
-        page_title="Linear Regression Demo",
+        page_title="Linear Regression Interactive Demo",
         page_icon="📊",
-        initial_sidebar_state="expanded"
+        initial_sidebar_state="collapsed"
     )
     
     # Glassmorphism CSS 樣式 - 白色基底
@@ -43,11 +43,45 @@ def main():
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
-        /* 側邊欄 Glassmorphism */
-        .css-1d391kg {
-            background: rgba(255, 255, 255, 0.2);
+        /* 側邊欄 Glassmorphism - 修正可見性問題 */
+        .css-1d391kg, section[data-testid="stSidebar"] {
+            background: rgba(255, 255, 255, 0.2) !important;
             backdrop-filter: blur(15px);
             border-right: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 側邊欄展開/收合按鈕 - 確保可見 */
+        button[data-testid="collapsedControl"] {
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 2px solid rgba(52, 152, 219, 0.3) !important;
+            border-radius: 12px !important;
+            color: #2c3e50 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+            transition: all 0.3s ease !important;
+            width: 40px !important;
+            height: 40px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: fixed !important;
+            top: 1rem !important;
+            left: 1rem !important;
+            z-index: 999999 !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        button[data-testid="collapsedControl"]:hover {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-color: rgba(52, 152, 219, 0.6) !important;
+            transform: scale(1.1) !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        /* 側邊欄內容樣式 */
+        .css-1lcbmhc, .css-17eq0hr {
+            background: transparent;
         }
         
         /* Slider 容器 */
@@ -135,25 +169,6 @@ def main():
             border-radius: 10px;
         }
         
-        /* 預設按鈕組 */
-        .preset-glass {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 15px;
-            padding: 0.8rem 1.5rem;
-            margin: 0.3rem;
-            color: #34495e;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .preset-glass:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: translateY(-2px);
-        }
-        
         /* 圖表容器 */
         .chart-container {
             background: rgba(255, 255, 255, 0.2);
@@ -210,7 +225,7 @@ def main():
             index=0
         )
         
-        if st.button("🚀 Apply Preset", type="primary"):
+        if st.button("� Apply Preset", type="primary"):
             st.session_state.preset_params = presets[selected_preset]
             st.rerun()
 
@@ -302,12 +317,15 @@ def main():
     # 生成數據和訓練模型
     current_random_state = getattr(st.session_state, 'random_state', random_state)
     df = generate_linear_data(a=a, b=b, noise=noise, n_points=n_points, random_state=int(current_random_state))
-    X_train, X_test, y_train, y_test = train_test_split(df['x'], df['y'], test_size=0.2, random_state=int(current_random_state))
+    X_train, X_test, y_train, y_test = train_test_split(df['x'], df['y'], test_size=0.2, random_state=int(random_state))
     model = train_linear_regression(X_train, y_train)
     y_pred = predict(model, X_test)
     y_train_pred = predict(model, X_train)
     metrics = evaluate(y_test, y_pred)
 
+    st.markdown("<hr style='border: none; height: 2px; background: linear-gradient(45deg, #667eea, #764ba2); margin: 2em 0; border-radius: 2px;'/>", unsafe_allow_html=True)
+
+    # 主要圖表區域
     # 主要可視化區域
     col1, col2 = st.columns([3, 1])
     
@@ -321,26 +339,26 @@ def main():
         fig.add_trace(go.Scatter(
             x=X_train, y=y_train,
             mode='markers',
-            name='Training Data',
+            name='🔵 Training Data',
             marker=dict(
                 size=8,
-                color='rgba(52, 152, 219, 0.7)',
-                line=dict(width=2, color='rgba(52, 152, 219, 1)')
+                color='rgba(102, 126, 234, 0.7)',
+                line=dict(width=2, color='rgba(102, 126, 234, 1)')
             ),
-            hovertemplate='<b>Training</b><br>X: %{x:.2f}<br>Y: %{y:.2f}<extra></extra>'
+            hovertemplate='<b>Training Point</b><br>X: %{x:.2f}<br>Y: %{y:.2f}<extra></extra>'
         ))
         
         # 測試數據點
         fig.add_trace(go.Scatter(
             x=X_test, y=y_test,
             mode='markers',
-            name='Test Data',
+            name='🟠 Test Data',
             marker=dict(
                 size=8,
-                color='rgba(231, 76, 60, 0.7)',
-                line=dict(width=2, color='rgba(231, 76, 60, 1)')
+                color='rgba(255, 149, 0, 0.7)',
+                line=dict(width=2, color='rgba(255, 149, 0, 1)')
             ),
-            hovertemplate='<b>Test</b><br>X: %{x:.2f}<br>Y: %{y:.2f}<extra></extra>'
+            hovertemplate='<b>Test Point</b><br>X: %{x:.2f}<br>Y: %{y:.2f}<extra></extra>'
         ))
         
         # 回歸線
@@ -349,42 +367,25 @@ def main():
         fig.add_trace(go.Scatter(
             x=x_line, y=y_line,
             mode='lines',
-            name='Regression Line',
-            line=dict(color='rgba(44, 62, 80, 0.9)', width=3),
+            name='📈 Regression Line',
+            line=dict(color='rgba(17, 17, 17, 0.8)', width=3),
             hovertemplate='<b>Predicted</b><br>X: %{x:.2f}<br>Y: %{y:.2f}<extra></extra>'
         ))
         
-        # 理想線（無噪音） - 可選顯示
-        if show_true_line:
-            y_ideal = a * x_line + b
-            fig.add_trace(go.Scatter(
-                x=x_line, y=y_ideal,
-                mode='lines',
-                name='True Line (No Noise)',
-                line=dict(color='rgba(155, 89, 182, 0.6)', width=2, dash='dash'),
-                hovertemplate='<b>True</b><br>X: %{x:.2f}<br>Y: %{y:.2f}<extra></extra>'
-            ))
-        
-        # 信賴區間 - 可選顯示
-        if show_confidence:
-            std_error = np.std(np.concatenate([y_train - y_train_pred, y_test - y_pred]))
-            y_upper = y_line + 1.96 * std_error
-            y_lower = y_line - 1.96 * std_error
-            
-            fig.add_trace(go.Scatter(
-                x=np.concatenate([x_line, x_line[::-1]]),
-                y=np.concatenate([y_upper, y_lower[::-1]]),
-                fill='toself',
-                fillcolor='rgba(52, 152, 219, 0.1)',
-                line=dict(color='rgba(52, 152, 219, 0)'),
-                name='95% Confidence Interval',
-                showlegend=True
-            ))
+        # 理想線（無噪音）
+        y_ideal = a * x_line + b
+        fig.add_trace(go.Scatter(
+            x=x_line, y=y_ideal,
+            mode='lines',
+            name='✨ True Line (No Noise)',
+            line=dict(color='rgba(118, 75, 162, 0.6)', width=2, dash='dash'),
+            hovertemplate='<b>True Line</b><br>X: %{x:.2f}<br>Y: %{y:.2f}<extra></extra>'
+        ))
         
         fig.update_layout(
             title=dict(
-                text=f"<b>y = {model.coef_[0]:.2f}x + {model.intercept_:.2f}</b>",
-                font=dict(size=20, color='#2c3e50'),
+                text=f"<b>Linear Regression: y = {model.coef_[0]:.2f}x + {model.intercept_:.2f}</b>",
+                font=dict(size=18),
                 x=0.5
             ),
             xaxis_title="X Values",
@@ -396,23 +397,10 @@ def main():
                 orientation="h",
                 yanchor="bottom",
                 y=1.02,
-                xanchor="center",
-                x=0.5
-            ),
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
+                xanchor="right",
+                x=1
+            )
         )
-        
-        # 預測點顯示
-        if hasattr(st.session_state, 'prediction_requested') and st.session_state.prediction_requested:
-            pred_y = model.predict([[st.session_state.predict_x]])[0]
-            fig.add_trace(go.Scatter(
-                x=[st.session_state.predict_x], y=[pred_y],
-                mode='markers',
-                name='Prediction',
-                marker=dict(size=15, color='gold', symbol='star', line=dict(width=2, color='orange')),
-                hovertemplate=f'<b>Prediction</b><br>X: {st.session_state.predict_x:.2f}<br>Y: {pred_y:.2f}<extra></extra>'
-            ))
         
         st.plotly_chart(fig, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
@@ -449,58 +437,57 @@ def main():
                     <p style='margin: 0; color: #e74c3c;'><strong>Error:</strong> {abs(pred_y - true_y):.2f}</p>
                 </div>
             """, unsafe_allow_html=True)
-
-    # 殘差分析（橫向布局）
-    st.markdown('<div class="chart-container" style="margin-top: 2rem;">', unsafe_allow_html=True)
-    st.markdown("### 📉 Residual Analysis")
+    
+    # 殘差分析
+    st.markdown("<h2 style='text-align:center; margin: 2rem 0 1rem 0;'>📉 Residual Analysis</h2>", unsafe_allow_html=True)
+    
+    residuals_train = y_train - y_train_pred
+    residuals_test = y_test - y_pred
     
     col_res1, col_res2 = st.columns(2)
     
     with col_res1:
-        residuals_train = y_train - y_train_pred
-        residuals_test = y_test - y_pred
-        
         fig_residuals = go.Figure()
         
         fig_residuals.add_trace(go.Scatter(
             x=y_train_pred, y=residuals_train,
             mode='markers',
-            name='Training',
-            marker=dict(size=6, color='rgba(52, 152, 219, 0.6)'),
+            name='Training Residuals',
+            marker=dict(size=6, color='rgba(102, 126, 234, 0.6)'),
             hovertemplate='<b>Training</b><br>Predicted: %{x:.2f}<br>Residual: %{y:.2f}<extra></extra>'
         ))
         
         fig_residuals.add_trace(go.Scatter(
             x=y_pred, y=residuals_test,
             mode='markers',
-            name='Test',
-            marker=dict(size=6, color='rgba(231, 76, 60, 0.6)'),
+            name='Test Residuals',
+            marker=dict(size=6, color='rgba(255, 149, 0, 0.6)'),
             hovertemplate='<b>Test</b><br>Predicted: %{x:.2f}<br>Residual: %{y:.2f}<extra></extra>'
         ))
         
-        fig_residuals.add_hline(y=0, line_dash="dash", line_color="rgba(44, 62, 80, 0.7)")
+        # 零殘差線
+        fig_residuals.add_hline(y=0, line_dash="dash", line_color="red", opacity=0.7)
         
         fig_residuals.update_layout(
-            title="Residuals vs Predicted",
+            title="Residuals vs Predicted Values",
             xaxis_title="Predicted Values",
             yaxis_title="Residuals",
             template="plotly_white",
-            height=350,
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)'
+            height=400
         )
         
         st.plotly_chart(fig_residuals, use_container_width=True)
     
     with col_res2:
+        # 殘差分布直方圖
         fig_hist = go.Figure()
         
         fig_hist.add_trace(go.Histogram(
             x=np.concatenate([residuals_train, residuals_test]),
             nbinsx=20,
-            name='Residuals',
-            marker_color='rgba(52, 152, 219, 0.7)',
-            hovertemplate='<b>Count:</b> %{y}<extra></extra>'
+            name='Residuals Distribution',
+            marker_color='rgba(102, 126, 234, 0.7)',
+            hovertemplate='<b>Residual Range</b><br>Count: %{y}<extra></extra>'
         ))
         
         fig_hist.update_layout(
@@ -508,34 +495,61 @@ def main():
             xaxis_title="Residual Values",
             yaxis_title="Frequency",
             template="plotly_white",
-            height=350,
-            showlegend=False,
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)'
+            height=400,
+            showlegend=False
         )
         
         st.plotly_chart(fig_hist, use_container_width=True)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
 
-# ====== 輔助函數 ======
+    # 預測功能
+    st.markdown("<h2 style='text-align:center; margin: 2rem 0 1rem 0;'>🔮 Make Predictions</h2>", unsafe_allow_html=True)
+    
+    col_pred1, col_pred2, col_pred3 = st.columns([1, 1, 1])
+    
+    with col_pred1:
+        predict_x = st.number_input('Enter X value for prediction:', value=0.0, step=0.1)
+    
+    with col_pred2:
+        if st.button("🎯 Predict", type="primary"):
+            predicted_y = model.predict([[predict_x]])[0]
+            true_y = a * predict_x + b
+            st.success(f"**Predicted Y**: {predicted_y:.2f}")
+            st.info(f"**True Y (no noise)**: {true_y:.2f}")
+            st.warning(f"**Difference**: {abs(predicted_y - true_y):.2f}")
+    
+    with col_pred3:
+        st.markdown("""
+            <div style="background: rgba(255, 255, 255, 0.9); padding: 1rem; border-radius: 10px; margin: 1rem 0;">
+                <p style='margin: 0; color: #666; font-size: 0.9rem;'>
+                    💡 Enter any X value to see what the model predicts vs the true value
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+
+# ====== 線性資料集產生器 ======
 def generate_linear_data(a=1.0, b=0.0, noise=1.0, n_points=100, random_state=None):
+    """
+    產生線性資料集 y = ax + b + noise
+    """
     rng = np.random.default_rng(random_state)
     x = rng.uniform(-10, 10, n_points)
     noise_arr = rng.normal(0, noise, n_points)
     y = a * x + b + noise_arr
     return pd.DataFrame({'x': x, 'y': y})
 
+# ====== 線性迴歸模型訓練 ======
 def train_linear_regression(X, y):
     X = np.array(X).reshape(-1, 1)
     model = LinearRegression()
     model.fit(X, y)
     return model
 
+# ====== 預測 ======
 def predict(model, X):
     X = np.array(X).reshape(-1, 1)
     return model.predict(X)
 
+# ====== 評估 ======
 def evaluate(y_true, y_pred):
     mse = mean_squared_error(y_true, y_pred)
     r2 = r2_score(y_true, y_pred)
