@@ -1,5 +1,14 @@
-import streamlit as st
 
+# ====== 所有 import 統一於最上方 ======
+import streamlit as st
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# ====== Streamlit 主程式 ======
 def main():
 	st.title('簡單線性迴歸互動展示')
 	st.markdown('---')
@@ -17,7 +26,6 @@ def main():
 	metrics = evaluate(y_test, y_pred)
 
 	st.header('資料與回歸線')
-	import matplotlib.pyplot as plt
 	fig, ax = plt.subplots(figsize=(8, 5))
 	ax.scatter(X_train, y_train, color='blue', label='Train')
 	ax.scatter(X_test, y_test, color='orange', label='Test')
@@ -34,9 +42,81 @@ def main():
 	st.write(f"MSE: {metrics['mse']:.3f}")
 	st.write(f"R2: {metrics['r2']:.3f}")
 
+# ====== 線性資料集產生器 ======
+def generate_linear_data(a=1.0, b=0.0, noise=1.0, n_points=100, random_state=None):
+	"""
+	產生線性資料集 y = ax + b + noise
+	參數：
+		a: 斜率
+		b: 截距
+		noise: 雜訊標準差
+		n_points: 資料點數量
+		random_state: 隨機種子
+	回傳：
+		DataFrame，包含 x, y 欄位
+	"""
+	rng = np.random.default_rng(random_state)
+	x = rng.uniform(-10, 10, n_points)
+	noise_arr = rng.normal(0, noise, n_points)
+	y = a * x + b + noise_arr
+	return pd.DataFrame({'x': x, 'y': y})
+
+# ====== 線性迴歸模型訓練 ======
+def train_linear_regression(X, y):
+	X = np.array(X).reshape(-1, 1)
+	model = LinearRegression()
+	model.fit(X, y)
+	return model
+
+# ====== 預測 ======
+def predict(model, X):
+	X = np.array(X).reshape(-1, 1)
+	return model.predict(X)
+
+# ====== 評估 ======
+def evaluate(y_true, y_pred):
+	mse = mean_squared_error(y_true, y_pred)
+	r2 = r2_score(y_true, y_pred)
+	return {'mse': mse, 'r2': r2}
+
+# ====== 資料與模型視覺化（可選） ======
+def plot_regression(X, y, model=None, title='Linear Regression', show=True):
+	X = np.array(X)
+	y = np.array(y)
+	plt.figure(figsize=(8, 5))
+	plt.scatter(X, y, color='blue', label='Data')
+	if model is not None:
+		x_line = np.linspace(X.min(), X.max(), 100)
+		y_line = model.predict(x_line.reshape(-1, 1))
+		plt.plot(x_line, y_line, color='red', label='Regression Line')
+	plt.xlabel('x')
+	plt.ylabel('y')
+	plt.title(title)
+	plt.legend()
+	if show:
+		plt.show()
+	else:
+		return plt
+
+# ====== CRISP-DM 流程範例（可選） ======
+def crispdm_example(a=2.0, b=1.0, noise=2.0, n_points=100, test_size=0.2, random_state=42):
+	df = generate_linear_data(a=a, b=b, noise=noise, n_points=n_points, random_state=random_state)
+	X_train, X_test, y_train, y_test = train_test_split(df['x'], df['y'], test_size=test_size, random_state=random_state)
+	model = train_linear_regression(X_train, y_train)
+	y_pred = predict(model, X_test)
+	metrics = evaluate(y_test, y_pred)
+	return {
+		'model': model,
+		'metrics': metrics,
+		'X_test': X_test,
+		'y_test': y_test,
+		'y_pred': y_pred,
+		'params': {'a': a, 'b': b, 'noise': noise, 'n_points': n_points, 'test_size': test_size}
+	}
+
+
 if __name__ == '__main__':
 	main()
-import matplotlib.pyplot as plt
 
 # 資料與模型視覺化
 def plot_regression(X, y, model=None, title='Linear Regression', show=True):
