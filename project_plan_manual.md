@@ -1,17 +1,5 @@
 # Project Plan & Manual
 
 ## 專案目標
-請在此描述本專案的主要目標與動機。
-
-## 開發功能規劃
-- 請在此條列您預計開發的功能。
-  - 例如：資料蒐集
-  - 例如：模型訓練
-  - 例如：API 設計
-
-## 使用說明
-請在此說明如何安裝、執行與測試本專案。
-
----
-
-> 請依照開發進度隨時補充與更新本文件。
+目標:write python to solve simple linear regression problem, following CRISP-DM steps
+成果:1. CRISP-DM 2. allow user to modify a in ax+b, noise, number of points 3. streamlit or flask web, 框架 deployment 4. readme
