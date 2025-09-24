@@ -55,6 +55,22 @@
    ```
 3. 預設會自動開啟瀏覽器，或於網址列輸入 http://localhost:8501
 
+## 雲端部署教學（Streamlit Community Cloud）
+你可以將本專案免費部署到 [Streamlit Community Cloud](https://streamlit.io/cloud)，讓任何人都能線上互動：
+
+1. **將專案推送到 GitHub**
+   - 若尚未上傳，請先建立 GitHub repository 並 push 專案原始碼。
+2. **註冊並登入 Streamlit Cloud**
+   - 前往 [https://streamlit.io/cloud](https://streamlit.io/cloud) 並使用 GitHub 帳號登入。
+3. **建立新應用程式**
+   - 點選『New app』，選擇你的 GitHub repository。
+   - 設定 Python 主程式為 `app.py`，requirements.txt 會自動偵測。
+   - 點選『Deploy』即可。
+4. **取得專屬網址**
+   - 部署完成後，會產生一組公開網址，分享給任何人即可線上互動。
+
+> 詳細教學可參考官方說明：https://docs.streamlit.io/streamlit-community-cloud/get-started/deploy-an-app
+
 ## 參數說明
 - **斜率 a**：決定資料線性趨勢的斜率
 - **截距 b**：線性方程式的截距
