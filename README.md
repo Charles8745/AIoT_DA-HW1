@@ -1,92 +1,162 @@
-# AIoT_DA-HW1：簡單線性迴歸互動展示
+# Simple Linear Regression Interactive Demo
 
-本專案以 Python 實作簡單線性迴歸，並依 CRISP-DM 流程開發，提供互動式網頁介面（Streamlit），讓使用者可調整參數並即時觀察資料、回歸線與評估指標。
+An interactive web application built with Python and Streamlit that demonstrates simple linear regression following the CRISP-DM methodology. Users can adjust parameters in real-time and observe how they affect the data distribution, regression line, and model performance.
 
----
-
-## 目錄
-- [專案簡介](#專案簡介)
-- [功能特色](#功能特色)
-- [安裝教學](#安裝教學)
-- [執行方式](#執行方式)
-- [參數說明](#參數說明)
-- [CRISP-DM 流程紀錄](#crisp-dm-流程紀錄)
-- [常見問題](#常見問題)
+## 🚀 Live Demo
+Visit the live demo: [https://aiotda-hw1-nt3pzdsutdj4wpkkpaicw5.streamlit.app/](https://aiotda-hw1-nt3pzdsutdj4wpkkpaicw5.streamlit.app/)
 
 ---
 
-## 專案簡介
-- 以 Python + Streamlit 實作互動式線性迴歸展示。
-- 可自訂斜率 a、截距 b、雜訊、資料點數等參數。
-- 即時顯示資料分布、回歸線與模型評估指標。
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Cloud Deployment](#cloud-deployment)
+- [Parameters Explained](#parameters-explained)
+- [CRISP-DM Documentation](#crisp-dm-documentation)
+- [Troubleshooting](#troubleshooting)
 
-## 功能特色
-- 產生可調參數的線性資料集
-- 線性迴歸模型訓練、預測、評估
-- 互動式網頁介面（Streamlit）
-- 完整 CRISP-DM 步驟紀錄
+## Project Overview
+This project implements an interactive simple linear regression demonstration using Python and Streamlit. The application follows the CRISP-DM (Cross-Industry Standard Process for Data Mining) methodology and features:
 
-## 安裝教學
-1. **安裝 Python 3.8 以上版本**（建議 3.10）
-2. **下載本專案**
+- **Clean, Modern Interface**: Inspired by Apple's design principles with minimal, desktop-friendly UI
+- **Real-time Parameter Adjustment**: Interactive sliders for slope, intercept, noise, and data points
+- **Instant Visualization**: Live updates of data scatter plots and regression lines
+- **Model Performance Metrics**: Real-time MSE and R² score calculations
+
+## Features
+✨ **Interactive Data Generation**: Create synthetic linear datasets with customizable parameters  
+📊 **Real-time Visualization**: Instantly see how parameter changes affect the data and model  
+🎯 **Model Training & Evaluation**: Automatic linear regression training with performance metrics  
+🌐 **Web-based Interface**: Streamlit-powered UI with modern, Apple-inspired design  
+📈 **CRISP-DM Workflow**: Complete data science methodology documentation  
+
+## Installation
+
+### Prerequisites
+- Python 3.8 or higher (Python 3.10 recommended)
+- Git (for cloning the repository)
+
+### Step-by-Step Setup
+
+1. **Clone the Repository**
    ```bash
    git clone https://github.com/Charles8745/AIoT_DA-HW1.git
    cd AIoT_DA-HW1
    ```
-3. **建立虛擬環境（建議）**
+
+2. **Create Virtual Environment (Recommended)**
    ```bash
    python3 -m venv .venv
-   source .venv/bin/activate
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
-4. **安裝必要套件**
+
+3. **Install Required Packages**
    ```bash
    pip install -r requirements.txt
    ```
-   若無 requirements.txt，可手動安裝：
+   
+   Or install manually if requirements.txt is missing:
    ```bash
    pip install numpy pandas scikit-learn matplotlib streamlit
    ```
 
-## 執行方式
-1. 於終端機進入專案資料夾
-2. 執行下列指令啟動網頁介面：
+## Usage
+
+### Local Development
+1. **Navigate to Project Directory**
+   ```bash
+   cd AIoT_DA-HW1
+   ```
+
+2. **Activate Virtual Environment** (if created)
+   ```bash
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+3. **Run the Application**
    ```bash
    streamlit run app.py
    ```
-3. 預設會自動開啟瀏覽器，或於網址列輸入 http://localhost:8501
 
-## 雲端部署教學（Streamlit Community Cloud）
-你可以將本專案免費部署到 [Streamlit Community Cloud](https://streamlit.io/cloud)，讓任何人都能線上互動：
+4. **Open in Browser**
+   - The app will automatically open in your default browser
+   - Or manually visit: http://localhost:8501
 
-1. **將專案推送到 GitHub**
-   - 若尚未上傳，請先建立 GitHub repository 並 push 專案原始碼。
-2. **註冊並登入 Streamlit Cloud**
-   - 前往 [https://streamlit.io/cloud](https://streamlit.io/cloud) 並使用 GitHub 帳號登入。
-3. **建立新應用程式**
-   - 點選『New app』，選擇你的 GitHub repository。
-   - 設定 Python 主程式為 `app.py`，requirements.txt 會自動偵測。
-   - 點選『Deploy』即可。
-4. **取得專屬網址**
-   - 部署完成後，會產生一組公開網址，分享給任何人即可線上互動。
+## Cloud Deployment
 
-> 詳細教學可參考官方說明：https://docs.streamlit.io/streamlit-community-cloud/get-started/deploy-an-app
+Deploy your app for free on Streamlit Community Cloud to share with anyone:
 
-## 參數說明
-- **斜率 a**：決定資料線性趨勢的斜率
-- **截距 b**：線性方程式的截距
-- **雜訊標準差**：資料隨機擾動程度
-- **資料點數**：產生的資料數量
-- **隨機種子**：確保每次產生資料一致
+### Quick Deployment Steps
 
-## CRISP-DM 流程紀錄
-- 詳細開發紀錄請見 `log.md`
-- 專案規劃與流程請見 `project_plan_AImodify.md`
+1. **Push to GitHub**
+   - Ensure your project is in a GitHub repository
+   - All files (app.py, requirements.txt) should be committed
 
-## 常見問題
-- 若遇到套件安裝失敗，請確認 Python 版本與網路連線。
-- 若無法啟動 Streamlit，請確認已安裝所有必要套件。
-- 其他問題請於 GitHub issue 留言。
+2. **Deploy on Streamlit Cloud**
+   - Visit [Streamlit Community Cloud](https://streamlit.io/cloud)
+   - Sign in with your GitHub account
+   - Click "New app" and select your repository
+   - Set main file path: `app.py`
+   - Click "Deploy"
+
+3. **Get Your Public URL**
+   - After deployment, you'll receive a public URL
+   - Share this URL with anyone to use your app
+
+> 📖 **Detailed Guide**: [Official Streamlit Cloud Documentation](https://docs.streamlit.io/streamlit-community-cloud/get-started/deploy-an-app)
+
+## Parameters Explained
+
+| Parameter | Description | Range | Effect |
+|-----------|-------------|-------|--------|
+| **Slope (a)** | Controls the steepness of the linear relationship | -10.0 to 10.0 | Higher values create steeper lines |
+| **Intercept (b)** | Y-axis intercept of the regression line | -20.0 to 20.0 | Shifts the line up or down |
+| **Noise Std** | Standard deviation of random noise added to data | 0.0 to 10.0 | Higher values scatter data more |
+| **Data Points** | Number of data points to generate | 10 to 500 | More points give smoother visualizations |
+| **Random Seed** | Seed for reproducible random data generation | Any integer | Same seed = same data pattern |
+
+## CRISP-DM Documentation
+
+This project follows the CRISP-DM methodology for data science projects:
+
+- **📋 Development Log**: See `log.md` for detailed development progress and decisions
+- **📋 Project Planning**: See `project_plan_AImodify.md` for project objectives and AI-assisted development workflow
+- **📋 Manual Planning**: See `project_plan_manual.md` for manual development approach
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+**🔧 Package Installation Fails**
+- Ensure Python 3.8+ is installed: `python --version`
+- Try upgrading pip: `pip install --upgrade pip`
+- Check internet connection
+
+**🔧 Streamlit Won't Start**
+- Verify all packages are installed: `pip list`
+- Try reinstalling streamlit: `pip install --force-reinstall streamlit`
+- Check if port 8501 is available
+
+**🔧 App Shows Errors on Streamlit Cloud**
+- Verify requirements.txt contains all dependencies
+- Check that main file is named `app.py`
+- Ensure repository is public or properly configured
+
+**🔧 Need Help?**
+- Create an issue on GitHub
+- Check the development log in `log.md`
+- Review the troubleshooting section above
 
 ---
 
-> 本專案歡迎教學、研究與自學使用。
+## 📫 Contributing & Support
+
+This project is open for educational and research purposes. Feel free to:
+- 🍴 Fork the repository
+- 🐛 Report issues
+- 💡 Suggest improvements
+- 📚 Use for learning and teaching
+
+**Made with ❤️ using Python and Streamlit**

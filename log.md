@@ -1,29 +1,85 @@
-# 開發記錄
+# Development Log
 
-此檔案用於記錄 HW1 專案的開發過程、遇到的問題與解決方式，以及重要的備註。
-
-- 2025-09-24：準備進行簡單線性迴歸模型訓練與預測程式實作。
-
-- 2025-09-24：完成簡單線性迴歸模型訓練、預測與評估程式（train_linear_regression, predict, evaluate），已加入 app.py。
-- 2025-09-24：安裝 scikit-learn 套件，確保模型可正常運作。
-
-- 2025-09-24：準備進行資料分割與建模流程範例實作。
-
-- 2025-09-24：完成資料分割與建模流程範例函式（crispdm_example），已加入 app.py。
-- 2025-09-24：安裝 matplotlib 套件，為後續視覺化做準備。
-
-- 2025-09-24：完成資料與模型視覺化函式（plot_regression），已加入 app.py。
-
-- 2025-09-24：完成 Streamlit 互動式網頁主程式，已加入 app.py，並安裝 streamlit。
-
-- 2025-09-24：完成 README 與 requirements.txt，說明安裝與使用方式，適合新手。
-
-- 2025-09-24：完成可調參數的線性資料集產生器（generate_linear_data），已加入 app.py。
-- 2025-09-24：安裝 numpy、pandas 套件，確保資料產生器可正常運作。
-- 2025-09-24：建立 log.md，準備開始記錄開發歷程。
-
-- 2025-09-24：完成 project_plan_AImodify.md 內容撰寫，包含專案目標、功能規劃、CRISP-DM 工作流程與 AI agent prompt 範例。
+This file documents the development process, challenges encountered, solutions implemented, and important notes for the HW1 project.
 
 ---
 
-> 請依照開發進度隨時補充與更新本文件。
+## Timeline & Progress
+
+### 2025-09-24: Project Initialization
+- ✅ Created `log.md` to start documenting development journey
+- ✅ Completed `project_plan_AImodify.md` with project goals, feature planning, CRISP-DM workflow, and AI agent prompt examples
+
+### 2025-09-24: Data Generation & Core ML Functions
+- ✅ Implemented adjustable linear dataset generator (`generate_linear_data`) in `app.py`
+- ✅ Installed required packages: `numpy`, `pandas`
+- ✅ Built simple linear regression model training, prediction, and evaluation functions (`train_linear_regression`, `predict`, `evaluate`)
+- ✅ Installed `scikit-learn` package for ML functionality
+
+### 2025-09-24: CRISP-DM Implementation & Visualization
+- ✅ Implemented data splitting and modeling workflow example (`crispdm_example`) following CRISP-DM methodology
+- ✅ Installed `matplotlib` package for visualization capabilities
+- ✅ Created data and model visualization function (`plot_regression`) for plotting data points and regression lines
+
+### 2025-09-24: Web Interface Development
+- ✅ Implemented Streamlit interactive web interface in `app.py`
+- ✅ Installed `streamlit` package for web UI
+- ✅ Created comprehensive README and requirements.txt for easy setup and deployment
+
+### 2025-09-24: UI/UX Optimization
+- ✅ Optimized Streamlit interface with Apple.com-inspired design: modern, clean, wide layout, proper spacing
+- ✅ Converted all web interface text to English and removed introductory text for minimal, focused interaction
+
+### 2025-09-24: Code Structure & Documentation
+- ✅ Refactored `app.py` with unified imports at top, removed duplicates, improved structure for stable cloud deployment
+- ✅ Updated README to full English with clear, beginner-friendly instructions
+- ✅ Enhanced documentation with step-by-step installation, usage, and deployment guides
+
+---
+
+## Key Technical Decisions
+
+### Architecture Choices
+- **Framework**: Streamlit for rapid web UI development
+- **ML Library**: scikit-learn for simplicity and reliability
+- **Data Handling**: pandas for structured data management
+- **Visualization**: matplotlib for clean, customizable plots
+
+### Design Philosophy
+- **Minimalist UI**: Apple-inspired clean design with focus on functionality
+- **Desktop-First**: Optimized for computer viewing with wide layout
+- **Real-time Interaction**: Immediate feedback on parameter changes
+- **Educational Focus**: Clear parameter explanations and visual feedback
+
+### Deployment Strategy
+- **Local Development**: Standard Python virtual environment setup
+- **Cloud Deployment**: Streamlit Community Cloud for free public access
+- **Documentation**: Comprehensive, beginner-friendly guides
+
+---
+
+## Challenges & Solutions
+
+### Challenge: Code Organization
+- **Issue**: Initial code had scattered imports and mixed structure
+- **Solution**: Unified all imports at file top, organized functions logically, improved readability
+
+### Challenge: UI Design
+- **Issue**: Default Streamlit appearance not professional enough
+- **Solution**: Custom CSS styling inspired by Apple's design principles, modern typography and spacing
+
+### Challenge: User Experience
+- **Issue**: Interface needed to be intuitive for non-technical users
+- **Solution**: Clear parameter explanations, real-time visual feedback, minimal text
+
+---
+
+## Future Enhancements (Optional)
+- Add more regression algorithms (polynomial, ridge, lasso)
+- Include data export functionality
+- Add animation for parameter changes
+- Implement model comparison features
+
+---
+
+> This log is continuously updated throughout the development process to maintain transparency and facilitate project understanding.
